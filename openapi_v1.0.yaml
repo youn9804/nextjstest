@@ -1,0 +1,261 @@
+openapi: 3.0.0
+info:
+  title: VIM API - OpenAPI 3.0
+  description: |-
+  contact:
+    email: youn9804@naver.com
+  version: 1.0.0
+servers:
+  - url: http://localhost/api/v1/
+  #- url: http://localhost/api/v1/
+tags:
+  - name: quests
+    description: ''
+  - name: user
+    description: ''
+paths:
+  /quests/:
+    get:
+      tags:
+        - quests
+      summary: List
+      description: ''
+      operationId: ''
+      parameters: []
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaignlist'
+        '404':
+          description: not found
+components:
+  schemas:
+    Campaignlist:
+      type: object
+      properties:
+        zuid:
+          type: integer
+          format: int64
+          description: '지머 회원 고유번호'
+        zcid:
+          type: integer
+          format: int64
+          description: '캠페인 고유번호'
+        targetarea :
+          type: string
+          description: '타켓지역'
+        zuname :
+          type: string
+          description: '지머 이름'
+        zuimg :
+          type: string
+          description: '지머 프로필 이미지'
+        zuchannel :
+          type: string
+          description: '지머 채널 내용'
+        zcstatus :
+          type: string
+          description: '캠페인 상태 [1:등록(검토중), 2:결제완료, 3:결제승인(캠페인 시작), 4:거부, 5:종료, 6:지급, 7:승인완료(결제중), 8:삭제, 9:환불]'
+        zlikecnt :
+          type: number
+          format: float
+          description: '지머 좋아요 수'
+        Questlist:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            type: object
+            properties:
+              quid:
+                type: integer
+                format: int64
+                description: '퀘스트 고유번호'
+              mediatype :
+                type: string
+                description: '소셜 미디어 타입'
+              startdate:
+                type: string
+                description: '시작일'
+              rewardprice:
+                type: integer
+                format: float
+                description: '보상금액'
+              questtotalcnt:
+                type: integer
+                format: int64
+                description: '퀘스트 총 참여 가능 인원'
+              title :
+                type: string
+                description: '제목'
+              content :
+                type: string
+                description: '내용'
+              energy:
+                type: integer
+                format: float
+                example: 1.1
+                description: '진행을 위한 필요 에너지'
+              weight1:
+                type: integer
+                format: float
+                example: 1.1
+                description: '공감도'
+              weight2:
+                type: integer
+                format: float
+                example: 1.1
+                description: '창의성'
+              weight3:
+                type: integer
+                format: float
+                example: 1.1
+                description: '구성력'
+              weight4:
+                type: integer
+                format: float
+                example: 1.1
+                description: '예술성'
+              guideimg:
+                type: string
+                description: '가이드 이미지'
+              contenturl:
+                type: string
+                description: '컨텐츠 주소'
+              answertype :
+                type: string
+                description: '답변 타입 [1:input, 2:file, 3:input & file]'
+              Anwserlist:
+                type: array
+                xml:
+                  wrapped: true
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      type: integer
+                      format: int64
+                      description: '회원 고유 번호'
+                    uname:
+                      type: string
+                      description: '회원 닉네임'
+                    uimg:
+                      type: string
+                      description: '회원 프로필 이미지'
+                    fileurl :
+                      type: string
+                      description: '이미지 주소'
+                    comment :
+                      type: string
+                      description: '답변 내용'
+                    rewardprice:
+                      type: integer
+                      format: float
+                      description: '보상 금액'
+                    rewardtoken :
+                      type : string
+                      description : '보상 토큰 종류'
+                    likeyn : 
+                      type : string
+                      example : Y
+                      description : '지머가 좋아요 누른 여부'
+                    status : 
+                      type : string
+                      example : Y
+                      description : 'W:대기, Y:승인 ,R:리젝'
+                    likeup:
+                      type: integer
+                      format: int64
+                      description: '답글 좋아요 수'
+                    likedown:
+                      type: integer
+                      format: int64
+                      description: '답글 싫어요 수'
+    error_201:
+      type: object
+      properties:
+        success:
+          type: string
+          example: false
+        status:
+          type: string
+          example: 201
+        msg:
+          type: string
+          example: 잘못된 요청입니다.
+    error_202:
+      type: object
+      properties:
+        success:
+          type: string
+          example: false
+        status:
+          type: string
+          example: 202
+        msg:
+          type: string
+          example: 잘못된 이미지 파일입니다.
+    error_203:
+      type: object
+      properties:
+        success:
+          type: string
+          example: false
+        status:
+          type: string
+          example: 203
+        msg:
+          type: string
+          example: 블럭회원 입니다.
+    error_206:
+      type: object
+      properties:
+        success:
+          type: string
+          example: false
+        status:
+          type: string
+          example: 206
+        msg:
+          type: string
+          example: 탈퇴회원 입니다.
+    error_300:
+      type: object
+      properties:
+        success:
+          type: string
+          example: false
+        status:
+          type: string
+          example: 300
+        msg:
+          type: string
+          example: 업로드할 수 없는 확장자입니다.
+    error_301:
+      type: object
+      properties:
+        success:
+          type: string
+          example: false
+        status:
+          type: string
+          example: 301
+        msg:
+          type: string
+          example: '비정상적인 파일입니다.(SIZE : 0)'
+  securitySchemes:
+    petstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
